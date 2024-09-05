@@ -35,4 +35,4 @@ console_command = 'php /var/www/html/artisan tinker'
 
 
 [deploy]
-  release_command = "php /var/www/html/artisan migrate && php /var/www/html/artisan db:seed"
+  release_command = "php /var/www/html/artisan migrate --seed"
