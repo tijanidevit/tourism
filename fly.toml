@@ -34,5 +34,5 @@ console_command = 'php /var/www/html/artisan tinker'
   cpus = 1
 
 
-# [deploy]
-#   release_command = "php /var/www/html/artisan migrate --seed"
+[deploy]
+  release_command = "php /var/www/html/artisan migrate"
