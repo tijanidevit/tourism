@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Traits;
-// use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Storage;
 
@@ -12,11 +12,10 @@ trait FileTrait
     }
     public function uploadFile($folder, $file)
     {
-        return url(Storage::url(Storage::putFile("$folder", $file, 'public')));
         if (App::environment('local')) {
             return url(Storage::url(Storage::putFile("$folder", $file, 'public')));
         } else {
-            return $file->storeOnCloudinary($folder)->getSecurePath();
+            return $file->storeOnCloudinary($folder)->getPath();
         }
     }
 

@@ -33,7 +33,7 @@ class DestinationController extends Controller
 
     public function store(StoreDestinationRequest $request) : RedirectResponse {
         $data = $request->validated();
-        $data['image'] = $this->uploadFile('destination/images', $data['image']);
+        $data['image'] = $this->uploadFile('destination/images', $request->image);
         $destination = Destination::create($data);
 
         return to_route('destination.show', $destination->id)->with('success', 'Destination created successfully');
