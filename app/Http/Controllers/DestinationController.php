@@ -34,7 +34,6 @@ class DestinationController extends Controller
 
     public function edit($id) : View {
         $destination = Destination::withCount('ratings')->whereId($id)->firstOrFail();
-        $destination->visits = $destination->visits()->with('user')->paginate();
 
         return view('destination.edit', compact('destination'));
     }

@@ -43,6 +43,8 @@
                         </div>
                         <ul>
                             <li><a href="{{route('app.bookings')}}">Bookings </a></li>
+                            <li><a href="{{route('app.profile.index')}}">Profile </a></li>
+                            {{-- <li><a href="{{route('app.map')}}">Map </a></li> --}}
                         </ul>
                     </nav>
                 </div>

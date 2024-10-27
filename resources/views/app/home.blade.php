@@ -42,7 +42,7 @@
         ];
     @endphp
 
-    <div class="find-form">
+    <div class="find-form mt-4">
         <div class="container">
             <form class="findfrom-wrapper" action="{{ route('app.home') }}">
                 <div class="row">

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Destination;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateDestinationRequest extends FormRequest
 {
@@ -22,7 +23,11 @@ class UpdateDestinationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|unique:destinations,id,except,id',
+            'name' => [
+                'required',
+                'string',
+                Rule::unique('destinations')->ignore($this->id)
+            ],
             'area' => 'required|string',
             'state' => 'required|string',
             'address' => 'required|string',
