@@ -54,6 +54,7 @@
 
     <div class="row">
         <div class="col-sm-12">
+            <x-success-alert />
             <form class="row">
                 <div class="col-sm-6 col-md-3">
                     <div class="form-group">
@@ -133,6 +134,21 @@
                                     </a>
                                 </div>
 
+                                <div class="mt-3">
+                                    <div class="d-flex justify-content-between">
+                                        <a href="{{route('destination.edit', $destination->id)}}" style="width: 48%" class="btn btn-warning waves-effect waves-light">
+                                            Edit
+                                        </a>
+
+                                        <form action="{{route('destination.delete', $destination->id)}}" onsubmit="return confirmDelete()" style="width: 48%" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" style="width: 100%" class="btn btn-danger">Delete</button>
+                                        </form>
+
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                         <!-- end. Card actions -->
@@ -155,4 +171,9 @@
 @section('extra-scripts')
     <script src="/assets/libs/select2/select2.min.js"></script>
     <script src="/assets/js/pages/form-advanced.init.js"></script>
+    <script>
+        function confirmDelete() {
+            return confirm("Are you sure you want to delete this item?");
+        }
+    </script>
 @endsection

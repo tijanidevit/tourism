@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Destination\StoreDestinationRequest;
+use App\Http\Requests\Destination\UpdateDestinationRequest;
 use App\Models\Destination;
 use App\Traits\FileTrait;
 use Illuminate\Http\RedirectResponse;
@@ -31,11 +32,34 @@ class DestinationController extends Controller
         return view('destination.show', compact('destination'));
     }
 
+    public function edit($id) : View {
+        $destination = Destination::withCount('ratings')->whereId($id)->firstOrFail();
+        $destination->visits = $destination->visits()->with('user')->paginate();
+
+        return view('destination.edit', compact('destination'));
+    }
+
+    public function delete($id) : RedirectResponse {
+        Destination::whereId($id)->delete();
+        return to_route('destination.index')->with('success', 'Destination deleted successfully!');
+    }
+
     public function store(StoreDestinationRequest $request) : RedirectResponse {
         $data = $request->validated();
         $data['image'] = $this->uploadFile('destination/images', $request->image);
         $destination = Destination::create($data);
 
         return to_route('destination.show', $destination->id)->with('success', 'Destination created successfully');
+    }
+
+    public function update($id, UpdateDestinationRequest $request) : RedirectResponse {
+        $data = $request->validated();
+
+        if (isset($data['image'])) {
+            $data['image'] = $this->uploadFile('destination/images', $request->image);
+        }
+        Destination::where('id', $id)->update($data);
+
+        return to_route('destination.show', $id)->with('success', 'Destination updated successfully');
     }
 }

@@ -21,7 +21,27 @@
                 <!-- end slider -->
 
                 <div class="mt-4">
-                    <h4>{{ $destination->name }}</h4>
+                    <div class="d-flex justify-content-between">
+                        <h4>{{ $destination->name }}</h4>
+
+                    <div class="">
+                        <div class="d-flex justify-content-between">
+                            <a href="{{route('destination.edit', $destination->id)}}" class="btn btn-sm mr-1 btn-warning waves-effect waves-light">
+                                Edit
+                            </a>
+
+                            <form action="{{route('destination.delete', $destination->id)}}" onsubmit="return confirmDelete()" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            </form>
+
+                        </div>
+                    </div>
+                    </div>
+
+
+
                     <p class="text-muted text-overflow"><i
                             class="mdi mdi-map-marker-radius mr-2"></i>{{ $destination->address }},
                         {{ $destination->area }}, {{ $destination->state }}</p>
@@ -89,7 +109,7 @@
                     lat: {{ $destination->latitude }},
                     lng: {{ $destination->longitude }}
                 },
-                zoom: 8
+                zoom: 10
             });
 
             const marker = new google.maps.marker.AdvancedMarkerElement({
